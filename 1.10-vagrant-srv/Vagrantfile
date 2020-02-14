@@ -23,16 +23,16 @@ Vagrant.configure("2") do |config|
   end
 
   # serveur dev
-  config.vm.define "srvdev" do |srvdev|
+  config.vm.define "srvdev-pipeline" do |srvdev|
     srvdev.vm.box = "debian/buster64"
-    srvdev.vm.hostname = "srvdev"
+    srvdev.vm.hostname = "srvdev-pipeline"
     srvdev.vm.box_url = "debian/buster64"
     srvdev.vm.network :private_network, ip: "192.168.5.3"
     srvdev.vm.provider :virtualbox do |v|
       v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
       v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
       v.customize ["modifyvm", :id, "--memory", 512]
-      v.customize ["modifyvm", :id, "--name", "srvdev"]
+      v.customize ["modifyvm", :id, "--name", "srvdev-pipeline"]
       v.customize ["modifyvm", :id, "--cpus", "1"]
     end
     config.vm.provision "shell", inline: <<-SHELL
@@ -42,16 +42,16 @@ Vagrant.configure("2") do |config|
   end
 
   # serveur stage/recette
-  config.vm.define "srvstage" do |srvstage|
+  config.vm.define "srvstage-pipeline" do |srvstage|
     srvstage.vm.box = "debian/buster64"
-    srvstage.vm.hostname = "srvstage"
+    srvstage.vm.hostname = "srvstage-pipeline"
     srvstage.vm.box_url = "debian/buster64"
     srvstage.vm.network :private_network, ip: "192.168.5.7"
     srvstage.vm.provider :virtualbox do |v|
       v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
       v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
       v.customize ["modifyvm", :id, "--memory", 512]
-      v.customize ["modifyvm", :id, "--name", "srvstage"]
+      v.customize ["modifyvm", :id, "--name", "srvstage-pipeline"]
       v.customize ["modifyvm", :id, "--cpus", "1"]
     end
     config.vm.provision "shell", inline: <<-SHELL
@@ -61,16 +61,16 @@ Vagrant.configure("2") do |config|
   end
 
   # serveur prod
-  config.vm.define "srvprod" do |srvprod|
+  config.vm.define "srvprod-pipeline" do |srvprod|
     srvprod.vm.box = "debian/buster64"
-    srvprod.vm.hostname = "srvprod"
+    srvprod.vm.hostname = "srvprod-pipeline"
     srvprod.vm.box_url = "debian/buster64"
     srvprod.vm.network :private_network, ip: "192.168.5.4"
     srvprod.vm.provider :virtualbox do |v|
       v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
       v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
       v.customize ["modifyvm", :id, "--memory", 512]
-      v.customize ["modifyvm", :id, "--name", "srvprod"]
+      v.customize ["modifyvm", :id, "--name", "srvprod-pipeline"]
       v.customize ["modifyvm", :id, "--cpus", "1"]
     end
     config.vm.provision "shell", inline: <<-SHELL
