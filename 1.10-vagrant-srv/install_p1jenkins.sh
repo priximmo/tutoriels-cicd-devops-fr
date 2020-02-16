@@ -8,7 +8,7 @@ echo "START - install jenkins - "$IP
 
 echo "[1]: install utils & ansible"
 apt-get update -qq >/dev/null
-apt-get install -qq -y git sshpass wget ansible gnupg2 curl git >/dev/null
+apt-get install -qq -y git sshpass wget ansible gnupg2 curl >/dev/null
 
 
 echo "[2]: install java & jenkins"
@@ -27,13 +27,13 @@ sed -i 's/.*allow_world_readable_tmpfiles.*/allow_world_readable_tmpfiles = True
 echo "[3]: install docker & docker-composer"
 curl -fsSL https://get.docker.com | sh; >/dev/null
 usermod -aG docker jenkins # authorize docker for jenkins user
-curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+curl -sL "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose 
 
 echo "[4]: use registry without ssl"
 echo "
 {
-  "insecure-registries" : ["192.168.10.5:5000"]
+ \"insecure-registries\" : [\"192.168.10.5:5000\"]
 }
 " >/etc/docker/daemon.json
 systemctl daemon-reload
