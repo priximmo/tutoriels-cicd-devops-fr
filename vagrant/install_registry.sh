@@ -8,9 +8,9 @@ echo "START - install registry - "$IP
 
 echo "[1]: install docker"
 apt-get update -qq >/dev/null
-apt-get install -qq -y git wget curl git >/dev/null
+apt-get install -qq -y git wget curl >/dev/null
 curl -fsSL https://get.docker.com | sh; >/dev/null
-curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+curl -sL "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
 
@@ -46,3 +46,5 @@ docker-compose -f docker-compose-registry.yml up -d
 
 echo "END - install registry"
 
+# Test
+# docker login https://192.168.5.5:5000
