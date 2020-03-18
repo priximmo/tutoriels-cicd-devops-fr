@@ -1,0 +1,8 @@
+
+
+- name: premier playbook
+  hosts: jenkins
+  tasks:
+  - name: première tâche
+    shell: echo "toto" > /tmp/xp
+  

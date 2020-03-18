@@ -1,0 +1,12 @@
+
+
+all:
+  vars:
+    nom: "xavki"
+  children:
+    jenkins:
+      hosts:
+        192.168.5.2:
+    registry:
+      hosts:
+        192.168.5.5:
