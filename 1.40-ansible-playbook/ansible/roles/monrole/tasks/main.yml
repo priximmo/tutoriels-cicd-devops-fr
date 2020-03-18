@@ -1,0 +1,4 @@
+
+
+- name: task 1
+  shell: echo "Rebonjour Xavki !!!">/tmp/xavki2
