@@ -1,0 +1,4 @@
+- name: playbook 1
+  hosts: all
+  roles:
+  - monrole

@@ -1,0 +1,8 @@
+
+
+- name: task 1
+  template:
+    src: monfichier.txt.j2
+    dest: /tmp/xavki.txt
+    owner: vagrant
+    mode: 0755
