@@ -1,0 +1,13 @@
+
+
+all:
+  children:
+    jenkins:
+      hosts:
+        192.168.5.2:
+    registry:
+      hosts:
+        192.168.5.5:
+    dev:
+      hosts:
+        192.168.5.3:

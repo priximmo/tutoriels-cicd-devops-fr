@@ -1,0 +1,14 @@
+
+
+- name: installation de nginx
+  apt:
+    name: nginx
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: édition du vhost par défaut
+  template:
+    src: default.j2
+    dest: /etc/nginx/sites-available/default
+  notify: nginx_reload

@@ -1,0 +1,5 @@
+- name: playbook 1
+  become: yes
+  hosts: pg
+  roles:
+  - postgres

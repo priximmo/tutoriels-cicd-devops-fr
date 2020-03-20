@@ -1,0 +1,10 @@
+
+
+all:
+  children:
+    dev:
+      hosts:
+        192.168.5.3:
+    pg:
+      hosts:
+        192.168.5.6:
