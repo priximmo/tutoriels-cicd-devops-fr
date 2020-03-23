@@ -1,0 +1,6 @@
+pg_settings:
+  db_name:
+    - { name: "formation", owner: "vagrant" }
+  users:
+    - { name: "vagrant", password: "vagrant" }
+

@@ -1,0 +1,6 @@
+- name: playbook 1
+  become: yes
+  hosts: dev
+  roles:
+  - docker
+  - service-install-run
