@@ -1,0 +1,31 @@
+- name: install pip
+  become: yes
+  apt:
+    name:
+     - python-pip
+     - postgresql-server-dev-11
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: install pip psycopg2
+  become: yes
+  pip:
+    name: psycopg2
+
+- name: create user
+  become_user: postgres
+  postgresql_user:
+    name: "{{ item.name }}"
+    password: "{{ item.password }}"
+    encrypted: true
+  with_items: "{{ pg_settings.users }}"
+  when: pg_settings.users is defined
+
+- name: create database
+  become_user: postgres
+  postgresql_db:
+    name: "{{ item.name }}"
+    owner: "{{ item.owner }}"
+  with_items: "{{ pg_settings.db_name }}"
+  when: pg_settings.db_name is defined
