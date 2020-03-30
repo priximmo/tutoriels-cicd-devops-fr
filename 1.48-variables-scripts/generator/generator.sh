@@ -93,14 +93,14 @@ NAME_CONTENEUR=$1
 [ -z ${NAME_CONTENEUR} ] && exit 1
 docker-compose -f $DIR/docker-compose-${NAME_CONTENEUR}.yml down
 #[ ! -z ${NAME_CONTENEUR} ] && rm -rf $DIR/${NAME_CONTENEUR}
-#rm -f $DIR/docker-compose-postgres${ID_CONTENEUR}.yml
+rm -f $DIR/docker-compose-postgres${ID_CONTENEUR}.yml
 docker volume prune -f
 }
 
 ## Execute ########################################################
 
 
-optspec=":ihv-:"
+optspec=":ihvp-:"
 while getopts "$optspec" optchar; do
     case "${optchar}" in
         -)
