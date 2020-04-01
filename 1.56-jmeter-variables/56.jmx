@@ -26,23 +26,24 @@
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
       <hashTree>
-        <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler" enabled="true">
           <stringProp name="cacheKey">true</stringProp>
           <stringProp name="filename"></stringProp>
           <stringProp name="parameters"></stringProp>
-          <stringProp name="script">def rand = ${__Random(1, 3)};
+          <stringProp name="script">def rand = ${__Random(0, 2)};
+def titre = &quot;Titre de mon Thread&quot;
+def question = []
+def reponse = &quot;voici ma solution&quot;
 
-def phrase = []
+question.add(&quot;qui es tu ?&quot;)
+question.add(&quot;que fais tu ?&quot;)
+question.add(&quot;que dire ?&quot;)
 
-phrase.add(&quot;Bonjour je suis Xavier&quot;)
-phrase.add(&quot;Mais j&apos;ai encore du travail&quot;)
-phrase.add(&quot;Je teste&quot;)
-
-
-
-vars.put(&quot;phrase&quot;, phrase[rand]);</stringProp>
+vars.put(&quot;titre&quot;, titre);
+vars.put(&quot;question&quot;, question[rand]);
+vars.put(&quot;reponse&quot;, reponse);</stringProp>
           <stringProp name="scriptLanguage">groovy</stringProp>
-        </JSR223PreProcessor>
+        </JSR223Sampler>
         <hashTree/>
         <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
           <collectionProp name="HeaderManager.headers">
@@ -71,14 +72,25 @@ vars.put(&quot;phrase&quot;, phrase[rand]);</stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </HTTPSamplerProxy>
-        <hashTree/>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="testCode" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="2849938">^20.</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">1</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="${__threadNum} / POST Questions" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
               <elementProp name="" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">{&quot;title&quot;: &quot;${titre} ${__threadNum} &quot;, &quot;description&quot;: &quot;mon texte de description&quot;}</stringProp>
+                <stringProp name="Argument.value">{&quot;title&quot;: &quot;${titre} ${__threadNum} &quot;, &quot;description&quot;: &quot;${question}&quot;}</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>
@@ -98,6 +110,34 @@ vars.put(&quot;phrase&quot;, phrase[rand]);</stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </HTTPSamplerProxy>
         <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="testCode" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="2849938">^20.</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">1</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="testJson - description" enabled="true">
+            <stringProp name="JSON_PATH">description</stringProp>
+            <stringProp name="EXPECTED_VALUE">${question}</stringProp>
+            <boolProp name="JSONVALIDATION">true</boolProp>
+            <boolProp name="EXPECT_NULL">false</boolProp>
+            <boolProp name="INVERT">false</boolProp>
+            <boolProp name="ISREGEX">false</boolProp>
+          </JSONPathAssertion>
+          <hashTree/>
+          <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="testJson - title" enabled="true">
+            <stringProp name="JSON_PATH">title</stringProp>
+            <stringProp name="EXPECTED_VALUE">^${titre} ${__threadNum} $</stringProp>
+            <boolProp name="JSONVALIDATION">true</boolProp>
+            <boolProp name="EXPECT_NULL">false</boolProp>
+            <boolProp name="INVERT">false</boolProp>
+            <boolProp name="ISREGEX">true</boolProp>
+          </JSONPathAssertion>
+          <hashTree/>
           <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor" enabled="true">
             <stringProp name="JSONPostProcessor.referenceNames">questionIds</stringProp>
             <stringProp name="JSONPostProcessor.jsonPathExprs">$.id</stringProp>
@@ -135,7 +175,7 @@ vars.put(&quot;phrase&quot;, phrase[rand]);</stringProp>
                   <elementProp name="" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
                     <stringProp name="Argument.value">{&#xd;
-	&quot;text&quot;: &quot;voici le retour ${responseNum} &quot;&#xd;
+	&quot;text&quot;: &quot;${reponse} ${responseNum} &quot;&#xd;
 &#xd;
 }&#xd;
 </stringProp>
@@ -157,7 +197,27 @@ vars.put(&quot;phrase&quot;, phrase[rand]);</stringProp>
               <stringProp name="HTTPSampler.connect_timeout"></stringProp>
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
             </HTTPSamplerProxy>
-            <hashTree/>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="testCode" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="2849938">^20.</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">1</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+              <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="testJson - content" enabled="true">
+                <stringProp name="JSON_PATH">text</stringProp>
+                <stringProp name="EXPECTED_VALUE">^${reponse} ${responseNum} .*$</stringProp>
+                <boolProp name="JSONVALIDATION">true</boolProp>
+                <boolProp name="EXPECT_NULL">false</boolProp>
+                <boolProp name="INVERT">false</boolProp>
+                <boolProp name="ISREGEX">true</boolProp>
+              </JSONPathAssertion>
+              <hashTree/>
+            </hashTree>
           </hashTree>
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="${__threadNum} / GET Response" enabled="true">
@@ -178,6 +238,36 @@ vars.put(&quot;phrase&quot;, phrase[rand]);</stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </HTTPSamplerProxy>
+        <hashTree>
+          <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="testJson" enabled="true">
+            <stringProp name="JSON_PATH">.updatedAt</stringProp>
+            <stringProp name="EXPECTED_VALUE"></stringProp>
+            <boolProp name="JSONVALIDATION">false</boolProp>
+            <boolProp name="EXPECT_NULL">false</boolProp>
+            <boolProp name="INVERT">false</boolProp>
+            <boolProp name="ISREGEX">true</boolProp>
+          </JSONPathAssertion>
+          <hashTree/>
+        </hashTree>
+        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="testCode" enabled="true">
+          <collectionProp name="Asserion.test_strings">
+            <stringProp name="2849938">^20.</stringProp>
+          </collectionProp>
+          <stringProp name="Assertion.custom_message"></stringProp>
+          <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+          <boolProp name="Assertion.assume_success">false</boolProp>
+          <intProp name="Assertion.test_type">1</intProp>
+        </ResponseAssertion>
+        <hashTree/>
+        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="codeTest" enabled="true">
+          <collectionProp name="Asserion.test_strings">
+            <stringProp name="2849938">^20.</stringProp>
+          </collectionProp>
+          <stringProp name="Assertion.custom_message">You have an error...</stringProp>
+          <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+          <boolProp name="Assertion.assume_success">false</boolProp>
+          <intProp name="Assertion.test_type">1</intProp>
+        </ResponseAssertion>
         <hashTree/>
         <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
