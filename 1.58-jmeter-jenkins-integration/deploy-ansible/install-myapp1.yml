@@ -1,0 +1,12 @@
+- name: postgres prerequisite
+  hosts: pg
+  become: yes
+  roles:
+  - postgres
+
+- name: install myapp1
+  hosts: myapp1
+  become: yes
+  roles:
+  - docker
+  - service_install_run
