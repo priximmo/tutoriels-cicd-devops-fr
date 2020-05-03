@@ -48,7 +48,7 @@ node {
         git branch: branchName, url: 'http://gitlab.example.com/root/pipeline-myapp1.git'}
         
 	/* Variables */
-        def imageName='192.168.10.5:5000/first-pipeline'
+        def imageName='192.168.5.5:5000/first-pipeline'
 
         if (branchName == "dev" ){
         extension = "-SNAPSHOT"
@@ -84,7 +84,7 @@ node {
 
         stage('DOCKER - Build/Push registry'){
             print "$imageName:${version}-${commitId}"
-            docker.withRegistry('http://192.168.10.5:5000', 'myregistry_login') {
+            docker.withRegistry('http://192.168.5.5:5000', 'myregistry_login') {
             def customImage = docker.build("$imageName:${version}-${commitId}")
             customImage.push()
             }
@@ -93,7 +93,7 @@ node {
 
         stage('DOCKER - check registry'){
             withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'myregistry_login',usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-             sh 'curl -sk --user $USERNAME:$PASSWORD https://192.168.10.5:5000/v2/first-pipeline/tags/list'
+             sh 'curl -sk --user $USERNAME:$PASSWORD https://192.168.5.5:5000/v2/first-pipeline/tags/list'
             }
         }
 
