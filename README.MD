@@ -1,7 +1,9 @@
 # Pipeline Devops pour débuter
 
+BLOG : https://xavki.blog/devops-tutos/
 
-## Turoriels Fr
+Playlist : https://www.youtube.com/playlist?list=PLn6POgpklwWrBPMKFniOiMyLMdxlgFhrG
+
 
 - 1.1 [Introduction & Sommaire](https://www.youtube.com/watch?v=tiSfXCM8VTw)
 - 1.2 [Qu'est-ce que le devops ?](https://www.youtube.com/watch?v=yNI4-1HfiGE)
